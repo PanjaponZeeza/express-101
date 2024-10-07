@@ -8,7 +8,7 @@
  * @param {import('express').Response} res - The response object.
  * @param {import('express').NextFunction} next - The next middleware function.
  */
-function reqLogger(req, res, next) {
+export function reqLogger(req, res, next) {
   console.log(
     `[${new Date().toISOString()}] Request: ${req.method} ${req.hostname}${
       req.url
@@ -16,5 +16,3 @@ function reqLogger(req, res, next) {
   );
   next();
 }
-
-module.exports = reqLogger;
