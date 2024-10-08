@@ -6,14 +6,11 @@ const port = 3000;
 
 const prisma = new PrismaClient();
 
-const allowedOrigins = ["http://whatever-domain-is.com"]; // Allowed origins
+const allowedOrigins = ["http://localhost:2000"]; // Allowed origins
 
 // Enable CORS for all routes (standard settings)
 app.use((req, res, next) => {
-  // for (const origin of allowedOrigins) {
-  //   res.header("Access-Control-Allow-Origin", origin);
-  // }
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", ...allowedOrigins);
   res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
