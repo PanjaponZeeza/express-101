@@ -1,8 +1,7 @@
 import express, { json } from "express";
 import { PrismaClient } from "@prisma/client";
-import { reqLogger } from "./helper/mdw.js";
+import { reqLogger } from "./../helper/mdw.js";
 const app = express();
-const port = 3000;
 
 const prisma = new PrismaClient();
 
@@ -10,16 +9,17 @@ const allowedOrigins = ["http://localhost:2000"]; // Allowed origins
 
 // Enable CORS for all routes (standard settings)
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-    res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next(); 
-  } else {
-    res.status(403).json({ error: 'CORS error: Forbidden origin' });
-  }
+  res.header("Access-Control-Allow-Origin", "http://localhost:2000");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
 });
 
 app.use(json());
@@ -50,6 +50,4 @@ app.post("/api/user/create", async (req, res) => {
     .json({ result: `User name ${name}, email ${email} had created.` });
 });
 
-app.listen(port, () => {
-  console.log(`API running on http://localhost:${port}`);
-});
+export default app;
