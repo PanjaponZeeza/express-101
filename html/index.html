@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORS Test</title>
+  </head>
+  <body>
+    <h1>CORS Test</h1>
+    <button id="fetchData">Fetch Data</button>
+    <script>
+      document.getElementById("fetchData").addEventListener("click", () => {
+        fetch("http://localhost:3000/ping", {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error:", error));
+      });
+    </script>
+  </body>
+</html>
