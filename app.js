@@ -30,6 +30,11 @@ app.get("/ping", (req, res) => {
   res.json({ message: "Hello from API!" });
 });
 
+app.get("/api/fetch-users", async (req, res) => {
+  const users = await prisma.user.findMany();
+  res.json(users);
+});
+
 app.all("/api/data", (req, res) => {
   res.json({ received: req.body });
 });
